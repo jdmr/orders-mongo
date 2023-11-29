@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -65,6 +66,7 @@ func createProduct(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	product.ID = uuid.New().String()
 	collection := client.Database("store").Collection("products")
 	_, err = collection.InsertOne(r.Context(), product)
 	if err != nil {
@@ -102,4 +104,5 @@ func deleteProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
+
 }
