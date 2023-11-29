@@ -34,6 +34,12 @@ func main() {
 	r.HandleFunc("/customers/{customerID}", updateCustomer).Methods("PUT")
 	r.HandleFunc("/customers/{customerID}", deleteCustomer).Methods("DELETE")
 
+	r.HandleFunc("/products", getProducts).Methods("GET")
+	r.HandleFunc("/products", createProduct).Methods("POST")
+	r.HandleFunc("/products/{productID}", getProduct).Methods("GET")
+	r.HandleFunc("/products/{productID}", updateProduct).Methods("PUT")
+	r.HandleFunc("/products/{productID}", deleteProduct).Methods("DELETE")
+
 	srv := http.Server{
 		Addr:    ":8080",
 		Handler: r,
